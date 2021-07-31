@@ -1,0 +1,198 @@
+-- 1. Вывести имя (firstname), фамилию (lastname) и email (email) сотрудников (таблицаEmployees)
+
+
+Select firstName, lastName, email From Employees;
+
+
+-- 2. Вывести всю информацию о сотрудниках (таблица Employees)
+
+
+Select * from employees;
+
+
+-- 3. Вывести первые 5 строк из таблицы Employees
+
+
+SELECT * from employees LIMIT 5;
+
+
+-- 4 Вывести 10 строк, начиная с 6 из таблицы Employees
+
+
+SELECT * from employees LIMIT 5, 10;
+
+
+-- 5. Вывести идентификатор ( имя ( и фамилию ( сотрудника, у которого идентификатор ( равен 1619 (таблица Employees)
+
+
+SELECT employeeNumber, firstName, lastName from employees where employeeNumber = 1619;
+
+
+-- 6 Вывести информацию о покупателях из USA ( таблица Customers)
+
+
+select * from customers where country = "USA";
+
+
+-- 7. Вывести информацию о заказах, которые в процессе обработки --“In Process” (таблица Orders)
+
+
+select * from orders where status = "In Process";
+
+
+-- 8. Вывести информацию о покупателях из USA и Canada ( таблица Customers)
+
+
+select * from customers where country = "USA" or country = "Canada";
+
+
+-- 9. Вывести информацию о покупателях не из USA (country таблица Customers)
+
+
+select * from customers where country <> "USA";
+
+-- 10.Вывести информацию о товаре, у которого цена больше 100 (buyPrice таблица Products) 
+
+ 
+select * from products where buyPrice > 100;
+
+
+-- 11. Вывести информацию о товаре, у которого цена больше 50 но меньше 100 (buyPrice таблица Products)
+
+
+select * from products where buyPrice > 50 or buyPrice = 100;
+
+
+-- 12. Вывести информацию о покупателях не из USA и не из Germany (country таблица Customers)
+
+
+select * from customers where country <> "USA" or "Germany";
+
+
+-- 13. Вывести информацию о заказах, в которых количество заказанных товаров (quantityOrdered) больше/равно 25 но меньше/равно 30 (таблица Orderdetails) тремя способами
+
+
+select * from orderdetails where quantityOrdered >= 25 and quantityOrdered <30;
+
+
+-- 14. Вывести имена (firsname) и фамилии сотрудников (lastname) у которых фамилия начинается на “ Bo”(таблица Employees)
+
+
+select * from employees where lastName LIKE "Bo%";
+select * from employees where firstName LIKE "Bo%";
+
+
+-- 15. Вывести имена (firstname) и фамилии сотрудников (lastname) у которых имя начинается на "M" и в имени есть буква “i”(таблица Employees)
+
+
+select * from employees where firstName LIKE "M%i%";
+select * from employees where lastName LIKE "M%i%";
+
+
+-- 16. Вывести имена (firstname) и фамилии сотрудников (lastname) у которых имя начинается на "M" и заканчивается на “i”(таблица Employees)
+
+
+select * from employees where firstName LIKE "M%i";
+
+
+-- 17. Вывести имена (firstname) и фамилии сотрудников (lastname) у которых имя состоит из 4 букв, начинается на "A" и заканчивается на “y”(таблица Employees)
+
+
+select * from employees where firstName LIKE "A__y";
+
+
+-- 18. Вывести всю информацию из поля JobTitle (таблица Employees)
+
+
+select jobTitle from employees;
+
+
+-- 19. Вывести список должностей ( JobTitle таблица Employees)
+
+
+select distinct jobTitle from employees;
+
+
+-- 20. Вывести число покупателей из France (county таблица Customers)
+
+
+select count(*) from customers where country = "France";
+
+
+-- 21. Вывести количество уникальных должностей в компании (Jobtitle таблица Employees);
+
+
+select count(distinct Jobtitle) from employees;
+
+
+-- 22. Вывести количество заказанных товаров (quantityOrdered, таблица Orderdetails)
+ 
+
+select count(quantityOrdered) from  Orderdetails;
+
+
+-- 23. Вывести максимальную цену (buyPrice) для товара (таблица Products)
+ 
+
+select max(buyPrice) from Products;
+ 
+
+-- 24. Вывести минимальную цену (buyPrice) для товара (таблица Products)
+ 
+
+select min(buyPrice) from Products;
+ 
+
+-- 25. Вывести всех сотрудников, отсортировав по имени (firstname) в порядке возрастания (таблица Employees)
+
+
+ select * from Employees ORDER BY firstname ASC;
+
+
+ -- 26. Вывести всех сотрудников в должности “Sales Rep”, отсортировав по имени в порядке убывания (Jobtitle таблица Employees)
+ ;
+
+select * from Employees where Jobtitle = "Sales Rep" order by lastname desc; 
+
+-- 27. Вывести последние 5 строк из таблицы Employees
+ 
+
+select * from employees order by employeenumber desc limit 5;
+
+
+ -- 28. Вывести 3 ю запись с конца из таблицы Employees
+ 
+
+select * from employees order by employeenumber desc limit 2, 1;
+
+
+ -- 29 Вывести страны (country) и количество покупателей в каждой стране (Customers)
+
+
+ select country, count(country) from customers group by country;
+ 
+
+-- 30. Вывести страны (county) и количество покупателей в каждой стране (Customers) отсортировав по названию страны
+ 
+
+
+
+select country, count(country) from customers group by country order by country; 
+
+-- 31. Вывести страны (country) и количество покупателей в каждой стране(Customers) отсортировав по количеству покупателей в стране.
+
+
+
+select country, count(country) from customers group by country order by count(country);
+
+ -- 32. Вывести категории товаров (productline) и максимальную цену (buyPrice) внутри каждой категории (Products).
+ 
+
+
+Select productline, buyPrice from products where buyPrice IN (select Max(buyPrice) from products where productLine IN(Select DISTINCT productline from products));
+
+
+ -- 33. Вывести название товара с максимальной ценой (productname, buyPrice, таблица Products)
+ 
+
+select productname, buyPrice from products where buyPrice = (select max(buyPrice) from Products);
